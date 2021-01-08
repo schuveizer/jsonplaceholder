@@ -3,10 +3,12 @@ package com.example.demo.controller;
 import com.example.demo.model.jsonplaceholder.response.AlbumResponse;
 import com.example.demo.model.jsonplaceholder.response.PostResponse;
 import com.example.demo.model.jsonplaceholder.response.UserResponse;
+import com.example.demo.model.jsonplaceholder.user.User;
 import com.example.demo.service.JsonPlaceHolderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -32,5 +34,10 @@ public class JsonPlaceHolderController {
     @GetMapping ("/user")
     public List<UserResponse> getCompleteUserResponse(){
         return jsonService.getcompleteUser();
+    }
+
+    @GetMapping ("/userbyid")
+    public UserResponse getUserById(@RequestParam Integer id){
+        return jsonService.getSpecificUser(id);
     }
 }
