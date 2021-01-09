@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Converter {
 
-    public UserResponse convertUser (User user, List<AlbumResponse> albums, List<PostResponse> posts, List<Todo> todos) {
+    public static UserResponse convertUser (User user, List<AlbumResponse> albums, List<PostResponse> posts, List<Todo> todos) {
         return   UserResponse.builder()
                 .id(user.getId())
                 .name(user.getName())
@@ -29,7 +29,7 @@ public class Converter {
                 .build();
     }
 
-    public AlbumResponse convertAlbum (Album album, List<Photo> photos){
+    public static AlbumResponse convertAlbum (Album album, List<Photo> photos){
         return AlbumResponse.builder()
                 .userId(album.getUserId())
                 .id(album.getId())
@@ -38,7 +38,7 @@ public class Converter {
                 .build();
     }
 
-    public PostResponse convertPost (Post post, List<Comment> comments){
+    public static PostResponse convertPost (Post post, List<Comment> comments){
         return PostResponse.builder()
                 .userId(post.getUserId())
                 .id(post.getId())
