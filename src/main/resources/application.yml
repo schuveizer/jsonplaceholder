@@ -1,1 +1,16 @@
+spring:
+  data:
+    mongodb:
+      uri: "mongodb+srv://twitch:001200@twichmongo.owqiu.mongodb.net/spring_victor?authSource=admin&replicaSet=atlas-wl7gr9-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true"
 
+
+
+#spring:
+#  datasource:
+#    mongo:
+#      username: twitch
+#      password: 001200
+#      host: twichmongo.owqiu.mongodb.net
+#      database: spring_victor
+#
+#        "mongodb://${spring.datasource.mongo.username}:${spring.datasource.mongo.password}@${spring.datasource.mongo.host}/${spring.datasource.mongo.database}"

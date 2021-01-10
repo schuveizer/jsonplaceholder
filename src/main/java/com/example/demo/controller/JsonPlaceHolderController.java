@@ -1,9 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.jsonplaceholder.response.AlbumResponse;
-import com.example.demo.model.jsonplaceholder.response.PostResponse;
-import com.example.demo.model.jsonplaceholder.response.UserResponse;
-import com.example.demo.model.jsonplaceholder.user.User;
+import com.example.demo.model.gateway.response.AlbumResponseGateway;
+import com.example.demo.model.gateway.response.PostResponseGateway;
+import com.example.demo.model.gateway.response.UserResponseGateway;
 import com.example.demo.service.JsonPlaceHolderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,22 +21,22 @@ public class JsonPlaceHolderController {
     private final JsonPlaceHolderService jsonService;
 
     @GetMapping ("/post")
-    public List<PostResponse> getCompletePostResponse () {
+    public List<PostResponseGateway> getCompletePostResponse () {
         return jsonService.getCompletePost();
     }
 
     @GetMapping ("/album")
-    public List<AlbumResponse> getCompleteAlbumResponse (){
+    public List<AlbumResponseGateway> getCompleteAlbumResponse (){
         return jsonService.getCompleteAlbum();
     }
 
     @GetMapping ("/user")
-    public List<UserResponse> getCompleteUserResponse(){
+    public List<UserResponseGateway> getCompleteUserResponse(){
         return jsonService.getcompleteUser();
     }
 
     @GetMapping ("/userbyid")
-    public UserResponse getUserById(@RequestParam Integer id){
+    public UserResponseGateway getUserById(@RequestParam Integer id){
         return jsonService.getSpecificUser(id);
     }
 }

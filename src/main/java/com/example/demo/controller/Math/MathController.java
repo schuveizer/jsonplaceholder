@@ -2,8 +2,8 @@
 
 package com.example.demo.controller.Math;
 
-import com.example.demo.model.Math.TestResult;
-import com.example.demo.service.Math.MathService;
+import com.example.demo.model.math.TestResult;
+import com.example.demo.service.math.MathService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

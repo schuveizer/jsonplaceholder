@@ -1,12 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.model.jsonplaceholder.*;
-import com.example.demo.model.jsonplaceholder.response.AlbumResponse;
-import com.example.demo.model.jsonplaceholder.response.PostResponse;
-import com.example.demo.model.jsonplaceholder.response.UserResponse;
-import com.example.demo.model.jsonplaceholder.user.User;
+import com.example.demo.model.gateway.*;
+import com.example.demo.model.gateway.response.AlbumResponseGateway;
+import com.example.demo.model.gateway.response.PostResponseGateway;
+import com.example.demo.model.gateway.response.UserResponseGateway;
+import com.example.demo.model.gateway.user.UserGateway;
 import com.example.demo.repository.JsonPlaceHolderRepository;
-import com.example.demo.utils.Mapper;
+import com.example.demo.utils.gateway.MapperGateway;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,45 +20,45 @@ public class JsonPlaceHolderService {
 
     private final JsonPlaceHolderRepository jsonPlaceHolderRepository;
 
-    public List<PostResponse> getCompletePost (){
-        List<Post> posts = jsonPlaceHolderRepository.getPosts();
-        List<Comment> comments = jsonPlaceHolderRepository.getComments();
-        List<PostResponse> responsePost = Mapper.mapToPostResponseList(posts, comments);
+    public List<PostResponseGateway> getCompletePost (){
+        List<PostGateway> postGateways = jsonPlaceHolderRepository.getPosts();
+        List<CommentGateway> commentGateways = jsonPlaceHolderRepository.getComments();
+        List<PostResponseGateway> responsePost = MapperGateway.mapToPostResponseList(postGateways, commentGateways);
         return responsePost;
     }
 
-    public List<AlbumResponse> getCompleteAlbum(){
-        List<Album> albums = jsonPlaceHolderRepository.getAlbums();
-        List<Photo> photos = jsonPlaceHolderRepository.getPhotos();
-        List<AlbumResponse> responseAlbum = Mapper.mapToAlbumResponseList(albums, photos);
+    public List<AlbumResponseGateway> getCompleteAlbum(){
+        List<AlbumGateway> albumGateways = jsonPlaceHolderRepository.getAlbums();
+        List<PhotoGateway> photoGateways = jsonPlaceHolderRepository.getPhotos();
+        List<AlbumResponseGateway> responseAlbum = MapperGateway.mapToAlbumResponseList(albumGateways, photoGateways);
         return responseAlbum;
     };
 
-    public List<UserResponse> getcompleteUser(){
-        List<User> users = jsonPlaceHolderRepository.getUsers();
-        List<Todo> todos = jsonPlaceHolderRepository.getTodos();
-        List<AlbumResponse> albums = getCompleteAlbum();
-        List<PostResponse> posts = getCompletePost();
-        List<UserResponse> responseUser = Mapper.mapToUserResponseList(users, todos, albums, posts);
+    public List<UserResponseGateway> getcompleteUser(){
+        List<UserGateway> userGateways = jsonPlaceHolderRepository.getUsers();
+        List<TodoGateway> todoGateways = jsonPlaceHolderRepository.getTodos();
+        List<AlbumResponseGateway> albums = getCompleteAlbum();
+        List<PostResponseGateway> posts = getCompletePost();
+        List<UserResponseGateway> responseUser = MapperGateway.mapToUserResponseList(userGateways, todoGateways, albums, posts);
         return responseUser;
     };
 
-    public UserResponse getSpecificUser (Integer id){
-        User user = jsonPlaceHolderRepository.getUserById(id).stream().findFirst().orElse(null);
-        if(Objects.isNull(user))
+    public UserResponseGateway getSpecificUser (Integer id){
+        UserGateway userGateway = jsonPlaceHolderRepository.getUserById(id).stream().findFirst().orElse(null);
+        if(Objects.isNull(userGateway))
             return null;
 
-        List<Post> posts = jsonPlaceHolderRepository.getPostByUserId(id);
-        List<Comment> comments = jsonPlaceHolderRepository.getComments();
-        List<Album> albums = jsonPlaceHolderRepository.getAlbumByUserId(id);
-        List<Photo> photos = jsonPlaceHolderRepository.getPhotos();
-        List<Todo> todos = jsonPlaceHolderRepository.getTodoByUserId(id);
+        List<PostGateway> postGateways = jsonPlaceHolderRepository.getPostByUserId(id);
+        List<CommentGateway> commentGateways = jsonPlaceHolderRepository.getComments();
+        List<AlbumGateway> albumGateways = jsonPlaceHolderRepository.getAlbumByUserId(id);
+        List<PhotoGateway> photoGateways = jsonPlaceHolderRepository.getPhotos();
+        List<TodoGateway> todoGateways = jsonPlaceHolderRepository.getTodoByUserId(id);
 
-        List<AlbumResponse> responseAlbum = Mapper.mapToAlbumResponseList(albums, photos);
+        List<AlbumResponseGateway> responseAlbum = MapperGateway.mapToAlbumResponseList(albumGateways, photoGateways);
 
-        List<PostResponse> responsePost = Mapper.mapToPostResponseList(posts, comments);
+        List<PostResponseGateway> responsePost = MapperGateway.mapToPostResponseList(postGateways, commentGateways);
 
-        return Mapper.mapToUserResponse(user, todos, responseAlbum, responsePost);
+        return MapperGateway.mapToUserResponse(userGateway, todoGateways, responseAlbum, responsePost);
 //        return jsonPlaceHolderRepository.getSpecificUser(id).stream().findFirst().orElse(null);
     }
 }
