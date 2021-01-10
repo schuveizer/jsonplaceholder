@@ -1,4 +1,4 @@
-package com.example.demo.utils;
+package com.example.demo.utils.gateway;
 
 import com.example.demo.model.gateway.*;
 import com.example.demo.model.gateway.response.AlbumResponseGateway;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Component
 
-public class Converter {
+public class ConverterGateway {
 
     public static UserResponseGateway convertUser (UserGateway userGateway, List<AlbumResponseGateway> albums, List<PostResponseGateway> posts, List<TodoGateway> todoGateways) {
         return   UserResponseGateway.builder()

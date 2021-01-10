@@ -1,8 +1,8 @@
-package com.example.demo.model.jsonplaceholder.response;
+package com.example.demo.model.gateway.response;
 
-import com.example.demo.model.jsonplaceholder.Todo;
-import com.example.demo.model.jsonplaceholder.user.UserAddress;
-import com.example.demo.model.jsonplaceholder.user.UserCompany;
+import com.example.demo.model.gateway.TodoGateway;
+import com.example.demo.model.gateway.user.UserAddressGateway;
+import com.example.demo.model.gateway.user.UserCompanyGateway;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,18 +11,18 @@ import java.util.List;
 @Data
 @Builder
 
-public class UserResponse {
+public class UserResponseGateway {
 
     private Integer id;
     private String name;
     private String username;
     private String email;
-    private UserAddress address;
+    private UserAddressGateway address;
     private String phone;
     private String website;
-    private UserCompany company;
-    private List<PostResponse> posts;
-    private List<AlbumResponse> albums;
-    private List<Todo> todos;
+    private UserCompanyGateway company;
+    private List<PostResponseGateway> posts;
+    private List<AlbumResponseGateway> albums;
+    private List<TodoGateway> todoGateways;
 
 }

@@ -1,4 +1,4 @@
-package com.example.demo.utils;
+package com.example.demo.utils.gateway;
 
 import com.example.demo.model.gateway.*;
 import com.example.demo.model.gateway.response.AlbumResponseGateway;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Component
 
-public class Filter {
+public class FilterGateway {
 
 //    List<TodoGateway> filteredTodo = todoGateways.stream()
 //            .filter(todo -> todo.getUserId().equals(user.getId()))
