@@ -1,8 +1,8 @@
 package com.example.demo.utils.gateway;
 
 import com.example.demo.model.gateway.*;
-import com.example.demo.model.gateway.response.AlbumResponseGateway;
-import com.example.demo.model.gateway.response.PostResponseGateway;
+import com.example.demo.model.gateway.completeuser.CompleteUserAlbumGateway;
+import com.example.demo.model.gateway.completeuser.CompleteUserPostGateway;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,21 +22,21 @@ public class FilterGateway {
                 .collect(Collectors.toList());
     }
 
-//    List<AlbumResponseGateway> filteredAlbum = albums.stream()
+//    List<CompleteUserAlbumGateway> filteredAlbum = albums.stream()
 //            .filter(albumResponse -> albumResponse.getUserId().equals(user.getId()))
 //            .collect(Collectors.toList());
 
-    public static List<AlbumResponseGateway> filteredAlbumByUserId (List<AlbumResponseGateway> albums, Integer userId){
+    public static List<CompleteUserAlbumGateway> filteredAlbumByUserId (List<CompleteUserAlbumGateway> albums, Integer userId){
         return albums.stream()
                 .filter(albumResponse -> albumResponse.getUserId().equals(userId))
                 .collect(Collectors.toList());
     }
 
-//    List<PostResponseGateway> filteredPost = posts.stream()
+//    List<CompleteUserPostGateway> filteredPost = posts.stream()
 //            .filter(postResponse -> postResponse.getUserId().equals(user.getId()))
 //            .collect(Collectors.toList());
 
-    public static List<PostResponseGateway> filteredPostByUserId (List<PostResponseGateway> posts, Integer userId){
+    public static List<CompleteUserPostGateway> filteredPostByUserId (List<CompleteUserPostGateway> posts, Integer userId){
         return posts.stream()
                 .filter(postResponse -> postResponse.getUserId().equals(userId))
                 .collect(Collectors.toList());

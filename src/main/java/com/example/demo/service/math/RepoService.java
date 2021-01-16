@@ -2,7 +2,7 @@ package com.example.demo.service.math;
 
 import com.example.demo.model.gateway.PostGateway;
 import com.example.demo.model.gateway.TodoGateway;
-import com.example.demo.repository.JsonPlaceHolderRepository;
+import com.example.demo.repository.unit.GatewayRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,19 +15,19 @@ import java.util.stream.Collectors;
 
 public class RepoService {
 
-    private final JsonPlaceHolderRepository jsonPlaceHolderRepository;
+    private final GatewayRepository gatewayRepository;
 
     public TodoGateway repoTest (Integer id){
-        return jsonPlaceHolderRepository.getTestRepository(id);
+        return gatewayRepository.getTestRepository(id);
     }
 
     public List<PostGateway> repoPostsTest (){
-        return  jsonPlaceHolderRepository.getPosts();
+        return  gatewayRepository.getPosts();
     }
 
     public List<PostGateway> repoPostsTestSearch (String search){
         List<PostGateway> listTest;
-        listTest = jsonPlaceHolderRepository.getPosts();
+        listTest = gatewayRepository.getPosts();
 //        String test = "stringgg";
 //        Boolean test2 = test.contains("stringgg");
         listTest = listTest.stream()
@@ -38,7 +38,7 @@ public class RepoService {
 
     public List<PostGateway> repoPostsTestOdd (Boolean odd){
         List<PostGateway> listOdd;
-        listOdd = jsonPlaceHolderRepository.getPosts();
+        listOdd = gatewayRepository.getPosts();
 //        Boolean test = true && (false || true);
 //        Boolean test2 = false || false && (true &&(false || false));
 //        Boolean test3 = (true && true) || (true && false);
