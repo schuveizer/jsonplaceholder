@@ -1,12 +1,10 @@
-package com.example.demo.service.db;
+package com.example.demo.service.db.unit;
 
-import com.example.demo.model.domain.user.UserDomain;
-import com.example.demo.model.request.AlbumRequest;
-import com.example.demo.model.request.UserRequest;
-import com.example.demo.model.response.AlbumResponse;
-import com.example.demo.model.response.UserResponse;
-import com.example.demo.repository.UserRepository;
-import com.example.demo.utils.db.ConverterUserDB;
+import com.example.demo.model.domain.unit.user.UserDomain;
+import com.example.demo.model.request.unit.UserRequest;
+import com.example.demo.model.response.unit.UserResponse;
+import com.example.demo.repository.unit.UserRepository;
+import com.example.demo.utils.db.unit.ConverterUserDB;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +35,10 @@ public class UserService {
         return ConverterUserDB.convertUserDomainToResponse(user);
     }
 
+    public UserDomain strictCreate(UserDomain user){
+        return userRepository.insert(user);
+    }
+
     public UserResponse update (UserRequest request, String id){
         getById(id);
         UserDomain user = ConverterUserDB.convertUserRequestToDomain(request);
@@ -50,4 +52,11 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public List<UserDomain> fullLoad(List<UserDomain> users){
+        return userRepository.saveAll(users);
+    }
+
+    public void purgeDB(){
+        userRepository.deleteAll();
+    }
 }

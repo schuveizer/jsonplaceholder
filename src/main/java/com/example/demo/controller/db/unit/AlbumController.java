@@ -1,9 +1,8 @@
-package com.example.demo.controller.db;
+package com.example.demo.controller.db.unit;
 
-import com.example.demo.model.request.AlbumRequest;
-import com.example.demo.model.response.AlbumResponse;
-import com.example.demo.service.db.AlbumService;
-import lombok.NoArgsConstructor;
+import com.example.demo.model.request.unit.AlbumRequest;
+import com.example.demo.model.response.unit.AlbumResponse;
+import com.example.demo.service.db.unit.AlbumService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

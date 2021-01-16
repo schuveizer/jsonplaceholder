@@ -1,8 +1,8 @@
-package com.example.demo.controller.db;
+package com.example.demo.controller.db.unit;
 
-import com.example.demo.model.request.TodoRequest;
-import com.example.demo.model.response.TodoResponse;
-import com.example.demo.service.db.TodoService;
+import com.example.demo.model.request.unit.TodoRequest;
+import com.example.demo.model.response.unit.TodoResponse;
+import com.example.demo.service.db.unit.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

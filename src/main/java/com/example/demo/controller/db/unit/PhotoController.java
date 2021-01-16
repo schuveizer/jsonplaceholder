@@ -1,8 +1,8 @@
-package com.example.demo.controller.db;
+package com.example.demo.controller.db.unit;
 
-import com.example.demo.model.request.PhotoRequest;
-import com.example.demo.model.response.PhotoResponse;
-import com.example.demo.service.db.PhotoService;
+import com.example.demo.model.request.unit.PhotoRequest;
+import com.example.demo.model.response.unit.PhotoResponse;
+import com.example.demo.service.db.unit.PhotoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,11 +1,12 @@
-package com.example.demo.service.db;
+package com.example.demo.service.db.unit;
 
-import com.example.demo.model.domain.AlbumDomain;
-import com.example.demo.model.request.AlbumRequest;
-import com.example.demo.model.response.AlbumResponse;
-import com.example.demo.repository.AlbumRepository;
-import com.example.demo.repository.UserRepository;
-import com.example.demo.utils.db.ConverterAlbumDB;
+import com.example.demo.model.domain.unit.AlbumDomain;
+import com.example.demo.model.domain.unit.CommentDomain;
+import com.example.demo.model.request.unit.AlbumRequest;
+import com.example.demo.model.response.unit.AlbumResponse;
+import com.example.demo.repository.unit.AlbumRepository;
+import com.example.demo.repository.unit.UserRepository;
+import com.example.demo.utils.db.unit.ConverterAlbumDB;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,10 @@ public class AlbumService {
         return ConverterAlbumDB.convertAlbumDomainToResponse(album);
     }
 
+    public AlbumDomain strictCreate(AlbumDomain album){
+        return albumRepository.insert(album);
+    }
+
     public AlbumResponse update (AlbumRequest request, String id){
         userRepository.findById(request.getUserId()).orElseThrow();
         getById(id);
@@ -51,4 +56,13 @@ public class AlbumService {
         getById(id);
         albumRepository.deleteById(id);
     }
+
+    public List<AlbumDomain> fullLoad(List<AlbumDomain> albums){
+        return albumRepository.saveAll(albums);
+    }
+
+    public void purgeDB(){
+        albumRepository.deleteAll();
+    }
+
 }

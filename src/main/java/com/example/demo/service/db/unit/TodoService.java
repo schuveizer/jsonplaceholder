@@ -1,13 +1,12 @@
-package com.example.demo.service.db;
+package com.example.demo.service.db.unit;
 
-import com.example.demo.model.domain.TodoDomain;
-import com.example.demo.model.request.AlbumRequest;
-import com.example.demo.model.request.TodoRequest;
-import com.example.demo.model.response.AlbumResponse;
-import com.example.demo.model.response.TodoResponse;
-import com.example.demo.repository.TodoRepository;
-import com.example.demo.repository.UserRepository;
-import com.example.demo.utils.db.ConverterTodoDB;
+import com.example.demo.model.domain.unit.TodoDomain;
+import com.example.demo.model.domain.unit.user.UserDomain;
+import com.example.demo.model.request.unit.TodoRequest;
+import com.example.demo.model.response.unit.TodoResponse;
+import com.example.demo.repository.unit.TodoRepository;
+import com.example.demo.repository.unit.UserRepository;
+import com.example.demo.utils.db.unit.ConverterTodoDB;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -52,5 +51,13 @@ public class TodoService {
     public void delete (String id){
         getById(id);
         todoRepository.deleteById(id);
+    }
+
+    public List<TodoDomain> fullLoad(List<TodoDomain> todos){
+        return todoRepository.saveAll(todos);
+    }
+
+    public void purgeDB(){
+        todoRepository.deleteAll();
     }
 }

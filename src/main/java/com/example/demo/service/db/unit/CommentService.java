@@ -1,11 +1,12 @@
-package com.example.demo.service.db;
+package com.example.demo.service.db.unit;
 
-import com.example.demo.model.domain.CommentDomain;
-import com.example.demo.model.request.CommentRequest;
-import com.example.demo.model.response.CommentResponse;
-import com.example.demo.repository.CommentRepository;
-import com.example.demo.repository.PostRepository;
-import com.example.demo.utils.db.ConverterCommentDB;
+import com.example.demo.model.domain.unit.CommentDomain;
+import com.example.demo.model.domain.unit.PhotoDomain;
+import com.example.demo.model.request.unit.CommentRequest;
+import com.example.demo.model.response.unit.CommentResponse;
+import com.example.demo.repository.unit.CommentRepository;
+import com.example.demo.repository.unit.PostRepository;
+import com.example.demo.utils.db.unit.ConverterCommentDB;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -51,4 +52,13 @@ public class CommentService {
         getById(id);
         commentRepository.deleteById(id);
     }
+
+    public List<CommentDomain> fullLoad(List<CommentDomain> comments){
+        return commentRepository.saveAll(comments);
+    }
+
+    public void purgeDB(){
+        commentRepository.deleteAll();
+    }
+
 }

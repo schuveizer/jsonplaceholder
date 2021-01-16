@@ -1,11 +1,12 @@
-package com.example.demo.service.db;
+package com.example.demo.service.db.unit;
 
-import com.example.demo.model.domain.PhotoDomain;
-import com.example.demo.model.request.PhotoRequest;
-import com.example.demo.model.response.PhotoResponse;
-import com.example.demo.repository.AlbumRepository;
-import com.example.demo.repository.PhotoRepository;
-import com.example.demo.utils.db.ConverterPhotoDB;
+import com.example.demo.model.domain.unit.PhotoDomain;
+import com.example.demo.model.domain.unit.PostDomain;
+import com.example.demo.model.request.unit.PhotoRequest;
+import com.example.demo.model.response.unit.PhotoResponse;
+import com.example.demo.repository.unit.AlbumRepository;
+import com.example.demo.repository.unit.PhotoRepository;
+import com.example.demo.utils.db.unit.ConverterPhotoDB;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -50,5 +51,13 @@ public class PhotoService {
     public void delete (String id){
         getById(id);
         photoRepository.deleteById(id);
+    }
+
+    public List<PhotoDomain> fullLoad(List<PhotoDomain> photos){
+        return photoRepository.saveAll(photos);
+    }
+
+    public void purgeDB(){
+        photoRepository.deleteAll();
     }
 }

@@ -1,15 +1,13 @@
-package com.example.demo.service.db;
+package com.example.demo.service.db.unit;
 
-import com.example.demo.model.domain.PostDomain;
-import com.example.demo.model.request.AlbumRequest;
-import com.example.demo.model.request.PostRequest;
-import com.example.demo.model.response.AlbumResponse;
-import com.example.demo.model.response.PostResponse;
-import com.example.demo.repository.PostRepository;
-import com.example.demo.repository.UserRepository;
-import com.example.demo.utils.db.ConverterPostDB;
+import com.example.demo.model.domain.unit.PostDomain;
+import com.example.demo.model.domain.unit.TodoDomain;
+import com.example.demo.model.request.unit.PostRequest;
+import com.example.demo.model.response.unit.PostResponse;
+import com.example.demo.repository.unit.PostRepository;
+import com.example.demo.repository.unit.UserRepository;
+import com.example.demo.utils.db.unit.ConverterPostDB;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,6 +39,10 @@ public class PostService {
         return ConverterPostDB.convertPostDomainToResponse(post);
     }
 
+    public PostDomain strictCreate(PostDomain post){
+        return postRepository.insert(post);
+    }
+
     public PostResponse update (PostRequest request, String id){
         userRepository.findById(request.getUserId()).orElseThrow();
         PostDomain post = ConverterPostDB.convertPostRequestToDomain(request);
@@ -54,4 +56,11 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
+    public List<PostDomain> fullLoad(List<PostDomain> posts){
+        return postRepository.saveAll(posts);
+    }
+
+    public void purgeDB(){
+        postRepository.deleteAll();
+    }
 }
