@@ -2,6 +2,7 @@ package com.example.demo.controller.db.unit;
 
 import com.example.demo.model.request.unit.PostRequest;
 import com.example.demo.model.response.unit.PostResponse;
+import com.example.demo.model.response.unit.UserResponse;
 import com.example.demo.service.db.unit.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,14 @@ public class PostController {
     @GetMapping
     public List<PostResponse> getAll (){
         return postService.getAll();
+    }
+
+    @GetMapping ("/geo")
+    public List<PostResponse> getPostByUserGeo (@RequestParam Double minLat,
+                                                @RequestParam Double maxLat,
+                                                @RequestParam Double minLng,
+                                                @RequestParam Double maxLng){
+        return postService.getPostByUserGeo(minLat,maxLat,minLng,maxLng);
     }
 
     @GetMapping ("/{id}")

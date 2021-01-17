@@ -2,12 +2,14 @@ package com.example.demo.service.db.unit;
 
 import com.example.demo.model.domain.unit.CommentDomain;
 import com.example.demo.model.domain.unit.PhotoDomain;
+import com.example.demo.model.domain.unit.TodoDomain;
 import com.example.demo.model.request.unit.CommentRequest;
 import com.example.demo.model.response.unit.CommentResponse;
 import com.example.demo.repository.unit.CommentRepository;
 import com.example.demo.repository.unit.PostRepository;
 import com.example.demo.utils.db.unit.ConverterCommentDB;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,7 +45,7 @@ public class CommentService {
         postRepository.findById(request.getPostId()).orElseThrow();
         getById(id);
         CommentDomain comment = ConverterCommentDB.convertCommentRequestToDomain(request);
-        comment.setId(id);
+        comment.setId(new ObjectId(id));
         comment = commentRepository.save(comment);
         return ConverterCommentDB.convertCommentDomainToResponse(comment);
     }
@@ -51,6 +53,11 @@ public class CommentService {
     public void delete (String id){
         getById(id);
         commentRepository.deleteById(id);
+    }
+
+    public void deleteByPostId (String postId){
+        List<CommentDomain> comments  = commentRepository.findByPostId(postId);
+        commentRepository.deleteAll(comments);
     }
 
     public List<CommentDomain> fullLoad(List<CommentDomain> comments){

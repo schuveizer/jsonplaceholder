@@ -9,6 +9,7 @@ import com.example.demo.service.GatewayService;
 import com.example.demo.utils.db.ConverterCompleteUserDB;
 import com.example.demo.utils.db.ConverterCompleteUserGateway;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class CompleteUserService {
     public CompleteUserResponse update (CompleteUserRequest request, String id){
         getById(id);
         CompleteUserDomain user = ConverterCompleteUserDB.convertCompleteUserRequestToDomain(request);
-        user.setId(id);
+        user.setId(new ObjectId(id));
         user = completeUserRepository.save(user);
         return ConverterCompleteUserDB.convertCompleteUserDomainToResponse(user);
     }

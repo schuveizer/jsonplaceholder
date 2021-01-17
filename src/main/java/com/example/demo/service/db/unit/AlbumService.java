@@ -1,13 +1,13 @@
 package com.example.demo.service.db.unit;
 
 import com.example.demo.model.domain.unit.AlbumDomain;
-import com.example.demo.model.domain.unit.CommentDomain;
 import com.example.demo.model.request.unit.AlbumRequest;
 import com.example.demo.model.response.unit.AlbumResponse;
 import com.example.demo.repository.unit.AlbumRepository;
 import com.example.demo.repository.unit.UserRepository;
 import com.example.demo.utils.db.unit.ConverterAlbumDB;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +20,7 @@ public class AlbumService {
 
     private final AlbumRepository albumRepository;
     private final UserRepository userRepository;
+    private final PhotoService photoService;
 
     public List<AlbumResponse> getAll (){
         List<AlbumDomain> albums = albumRepository.findAll();
@@ -47,14 +48,19 @@ public class AlbumService {
         userRepository.findById(request.getUserId()).orElseThrow();
         getById(id);
         AlbumDomain album = ConverterAlbumDB.convertAlbumRequestToDomain(request);
-        album.setId(id);
+        album.setId(new ObjectId(id));
         album = albumRepository.save(album);
         return ConverterAlbumDB.convertAlbumDomainToResponse(album);
     }
 
     public void delete (String id){
         getById(id);
+        photoService.deleteByAlbumId(id);
         albumRepository.deleteById(id);
+    }
+
+    public List<AlbumDomain> findByUserId (String userId){
+        return albumRepository.findByUserId(userId);
     }
 
     public List<AlbumDomain> fullLoad(List<AlbumDomain> albums){

@@ -69,13 +69,13 @@ public class LoadService {
             UserDomain currentUserDomain = convertedUsers.get(i);
             albums.stream().filter(album -> album.getUserId().equals(currentUserGateway.getId()))
                     .forEach(album -> convertedAlbums
-                            .add(ConverterAlbumDB.convertAlbumGatewayToDomainWithUserId(album, currentUserDomain.getId())));
+                            .add(ConverterAlbumDB.convertAlbumGatewayToDomainWithUserId(album, currentUserDomain.getId().toHexString())));
             posts.stream().filter(post -> post.getUserId().equals(currentUserGateway.getId()))
                     .forEach(post -> convertedPosts
-                            .add(ConverterPostDB.convertPostGatewayToDomainWithUserId(post, currentUserDomain.getId())));
+                            .add(ConverterPostDB.convertPostGatewayToDomainWithUserId(post, currentUserDomain.getId().toHexString())));
             todos.stream().filter(todo -> todo.getUserId().equals(currentUserGateway.getId()))
                     .forEach(todo -> convertedTodos
-                            .add(ConverterTodoDB.convertTodoGatewayToDomainWithUserId(todo, currentUserDomain.getId())));
+                            .add(ConverterTodoDB.convertTodoGatewayToDomainWithUserId(todo, currentUserDomain.getId().toHexString())));
         }
         System.out.println("Inserting Todos");
         todoService.fullLoad(convertedTodos);
@@ -91,7 +91,7 @@ public class LoadService {
             AlbumDomain currentAlbumDomain = convertedAlbumsWithId.get(i);
             photos.stream().filter(photo -> photo.getAlbumId().equals(currentAlbumGateway.getId()))
                     .forEach(photo -> convertedPhotos
-                            .add(ConverterPhotoDB.convertPhotoGatewayToDomainWithAlbumId(photo, currentAlbumDomain.getId())));
+                            .add(ConverterPhotoDB.convertPhotoGatewayToDomainWithAlbumId(photo, currentAlbumDomain.getId().toHexString())));
         }
         System.out.println("Inserting Photos");
         photoService.fullLoad(convertedPhotos);
@@ -107,7 +107,7 @@ public class LoadService {
             PostDomain currentPostDomain = convertedPostsWithId.get(i);
             comments.stream().filter(comment -> comment.getPostId().equals(currentPostGateway.getId()))
                     .forEach(comment -> convertedComments
-                            .add(ConverterCommentDB.convertCommentGatewayToDomainWithPostId(comment, currentPostDomain.getId())));
+                            .add(ConverterCommentDB.convertCommentGatewayToDomainWithPostId(comment, currentPostDomain.getId().toHexString())));
         }
         System.out.println("Inserting Comments");
         commentService.fullLoad(convertedComments);
@@ -127,7 +127,7 @@ public class LoadService {
             System.out.println("AAAAAAAAAAAAAAA");
             UserDomain convertedUser = ConverterUserDB.convertUserGatewayToDomain(user);
             convertedUser = userService.strictCreate(convertedUser);
-            String userId = convertedUser.getId();
+            String userId = convertedUser.getId().toHexString();
 
             List<TodoDomain> convertedTodos = todos.stream()
                     .filter(todo -> todo.getUserId().equals(user.getId()))
@@ -143,7 +143,7 @@ public class LoadService {
                 AlbumDomain convertedAlbum = ConverterAlbumDB.convertAlbumGatewayToDomainWithUserId(album, userId);
                 convertedAlbum = albumService.strictCreate(convertedAlbum);
 
-                String albumId = convertedAlbum.getId();
+                String albumId = convertedAlbum.getId().toHexString();
 
                 List<PhotoDomain> convertedPhotos = photos.stream()
                         .filter(photo -> photo.getAlbumId().equals(album.getId()))
@@ -160,7 +160,7 @@ public class LoadService {
                 PostDomain convertPost = ConverterPostDB.convertPostGatewayToDomainWithUserId(post, userId);
                 convertPost = postService.strictCreate(convertPost);
 
-                String postId = convertPost.getId();
+                String postId = convertPost.getId().toHexString();
 
                 List<CommentDomain> convertedComments = comments.stream()
                         .filter(comment -> comment.getPostId().equals(post.getId()))

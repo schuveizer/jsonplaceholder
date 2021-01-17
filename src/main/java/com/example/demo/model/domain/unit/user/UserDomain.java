@@ -2,6 +2,7 @@ package com.example.demo.model.domain.unit.user;
 
 import lombok.Builder;
 import lombok.Data;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class UserDomain {
 
     @Id
-    private String id;
+    private ObjectId id;
     private String name;
     private String username;
     private String email;

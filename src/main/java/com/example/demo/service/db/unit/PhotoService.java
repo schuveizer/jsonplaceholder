@@ -1,5 +1,6 @@
 package com.example.demo.service.db.unit;
 
+import com.example.demo.model.domain.unit.CommentDomain;
 import com.example.demo.model.domain.unit.PhotoDomain;
 import com.example.demo.model.domain.unit.PostDomain;
 import com.example.demo.model.request.unit.PhotoRequest;
@@ -8,6 +9,7 @@ import com.example.demo.repository.unit.AlbumRepository;
 import com.example.demo.repository.unit.PhotoRepository;
 import com.example.demo.utils.db.unit.ConverterPhotoDB;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,7 +45,7 @@ public class PhotoService {
         albumRepository.findById(request.getAlbumId()).orElseThrow();
         getById(id);
         PhotoDomain photo = ConverterPhotoDB.convertPhotoRequestToDomain(request);
-        photo.setId(id);
+        photo.setId(new ObjectId(id));
         photo = photoRepository.save(photo);
         return ConverterPhotoDB.convertPhotoDomainToResponse(photo);
     }
@@ -51,6 +53,11 @@ public class PhotoService {
     public void delete (String id){
         getById(id);
         photoRepository.deleteById(id);
+    }
+
+    public void deleteByAlbumId (String albumId){
+        List<PhotoDomain> photos  = photoRepository.findByAlbumId(albumId);
+        photoRepository.deleteAll(photos);
     }
 
     public List<PhotoDomain> fullLoad(List<PhotoDomain> photos){

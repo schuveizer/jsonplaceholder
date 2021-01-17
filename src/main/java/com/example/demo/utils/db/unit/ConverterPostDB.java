@@ -7,6 +7,7 @@ import com.example.demo.model.gateway.completeuser.CompleteUserPostGateway;
 import com.example.demo.model.request.unit.PostRequest;
 import com.example.demo.model.response.unit.PostResponse;
 import com.example.demo.utils.db.ConverterCompleteUserGateway;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -17,7 +18,7 @@ public class ConverterPostDB {
 
     public static PostDomain convertPostRequestToDomain (PostRequest post){
         return PostDomain.builder()
-                .userId(post.getUserId())
+                .userId(new ObjectId(post.getUserId()))
                 .title(post.getTitle())
                 .body(post.getBody())
                 .build();
@@ -25,8 +26,8 @@ public class ConverterPostDB {
 
     public static PostResponse convertPostDomainToResponse (PostDomain post){
         return PostResponse.builder()
-                .userId(post.getUserId())
-                .id(post.getId())
+                .userId(post.getUserId().toHexString())
+                .id(post.getId().toHexString())
                 .title(post.getTitle())
                 .body(post.getBody())
                 .build();
@@ -41,7 +42,7 @@ public class ConverterPostDB {
 
     public static PostDomain convertPostGatewayToDomainWithUserId (PostGateway post, String userId) {
         return PostDomain.builder()
-                .userId(userId)
+                .userId(new ObjectId(userId))
                 .title(post.getTitle())
                 .body(post.getBody())
                 .build();

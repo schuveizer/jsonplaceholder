@@ -5,6 +5,7 @@ import com.example.demo.model.domain.unit.PhotoDomain;
 import com.example.demo.model.gateway.PhotoGateway;
 import com.example.demo.model.request.unit.PhotoRequest;
 import com.example.demo.model.response.unit.PhotoResponse;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +14,7 @@ public class ConverterPhotoDB {
 
     public static PhotoDomain convertPhotoRequestToDomain (PhotoRequest photo){
         return PhotoDomain.builder()
-                .albumId(photo.getAlbumId())
+                .albumId(new ObjectId(photo.getAlbumId()))
                 .title(photo.getTitle())
                 .url(photo.getUrl())
                 .thumbnailUrl(photo.getThumbnailUrl())
@@ -22,8 +23,8 @@ public class ConverterPhotoDB {
 
     public static PhotoResponse convertPhotoDomainToResponse (PhotoDomain photo){
         return PhotoResponse.builder()
-                .albumId(photo.getAlbumId())
-                .id(photo.getId())
+                .albumId(photo.getAlbumId().toHexString())
+                .id(photo.getId().toHexString())
                 .title(photo.getTitle())
                 .url(photo.getUrl())
                 .thumbnailUrl(photo.getThumbnailUrl())
@@ -40,7 +41,7 @@ public class ConverterPhotoDB {
 
     public static PhotoDomain convertPhotoGatewayToDomainWithAlbumId(PhotoGateway photo, String albumId) {
         return PhotoDomain.builder()
-                .albumId(albumId)
+                .albumId(new ObjectId(albumId))
                 .title(photo.getTitle())
                 .url(photo.getUrl())
                 .thumbnailUrl(photo.getThumbnailUrl())

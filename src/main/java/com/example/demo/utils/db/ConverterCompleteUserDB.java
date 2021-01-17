@@ -104,7 +104,7 @@ public class ConverterCompleteUserDB {
 
     public static CompleteUserResponse convertCompleteUserDomainToResponse(CompleteUserDomain user) {
         return CompleteUserResponse.builder()
-                .id(user.getId())
+                .id(user.getId().toHexString())
                 .name(user.getName())
                 .username(user.getUsername())
                 .email(user.getEmail())

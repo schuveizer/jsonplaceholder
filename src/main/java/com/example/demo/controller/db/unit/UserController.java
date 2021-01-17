@@ -1,6 +1,8 @@
 package com.example.demo.controller.db.unit;
 
+import com.example.demo.model.domain.completeuser.CompleteUserDomain;
 import com.example.demo.model.request.unit.UserRequest;
+import com.example.demo.model.response.CompleteUserResponse;
 import com.example.demo.model.response.unit.UserResponse;
 import com.example.demo.service.db.unit.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +20,21 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public List<UserResponse> getAll (){
-        return userService.getAll();
+    public List<UserResponse> getAll (@RequestParam (required = false) String name){
+        return userService.getAll(name);
+    }
+
+    @GetMapping ("/geo")
+    public List<UserResponse> getByLatLngRange (@RequestParam Double minLat,
+                                                @RequestParam Double maxLat,
+                                                @RequestParam Double minLng,
+                                                @RequestParam Double maxLng){
+        return userService.getByLatLngRange(minLat,maxLat,minLng,maxLng);
+    }
+
+    @GetMapping ("/dumb")
+    public List<CompleteUserDomain> getDumbCompleteUser (){
+        return userService.getDumbCompleteUser();
     }
 
     @GetMapping ("/{id}")

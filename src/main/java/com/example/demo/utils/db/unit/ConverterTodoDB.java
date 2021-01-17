@@ -5,6 +5,7 @@ import com.example.demo.model.domain.unit.TodoDomain;
 import com.example.demo.model.gateway.TodoGateway;
 import com.example.demo.model.request.unit.TodoRequest;
 import com.example.demo.model.response.unit.TodoResponse;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +14,7 @@ public class ConverterTodoDB {
 
     public static TodoDomain convertTodoRequestToDomain (TodoRequest todo){
         return TodoDomain.builder()
-                .userId(todo.getUserId())
+                .userId(new ObjectId(todo.getUserId()))
                 .title(todo.getTitle())
                 .completed(todo.getCompleted())
                 .build();
@@ -21,8 +22,8 @@ public class ConverterTodoDB {
 
     public static TodoResponse convertTodoDomainToResponse (TodoDomain todo){
         return TodoResponse.builder()
-                .id(todo.getId())
-                .userId(todo.getUserId())
+                .id(todo.getId().toHexString())
+                .userId(todo.getUserId().toHexString())
                 .title(todo.getTitle())
                 .completed(todo.getCompleted())
                 .build();
@@ -37,7 +38,7 @@ public class ConverterTodoDB {
 
     public static TodoDomain convertTodoGatewayToDomainWithUserId (TodoGateway todo, String userId) {
         return TodoDomain.builder()
-                .userId(userId)
+                .userId(new ObjectId(userId))
                 .title(todo.getTitle())
                 .completed(todo.getCompleted())
                 .build();

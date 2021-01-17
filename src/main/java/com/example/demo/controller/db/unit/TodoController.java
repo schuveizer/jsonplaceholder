@@ -18,8 +18,13 @@ public class TodoController {
     private final TodoService todoService;
 
     @GetMapping
-    public List<TodoResponse> getAll(){
-        return todoService.getAll();
+    public List<TodoResponse> getAll(@RequestParam (required = false) String userId){
+        return todoService.getAll(userId);
+    }
+
+    @GetMapping ("/completed")
+    public List<TodoResponse> getAll(@RequestParam Boolean completed){
+        return todoService.getByBoolean(completed);
     }
 
     @GetMapping ("/{id}")
@@ -36,7 +41,6 @@ public class TodoController {
     public TodoResponse update (@RequestBody TodoRequest request, @PathVariable String id){
         return todoService.update(request, id);
     }
-
     @DeleteMapping ("/{id}")
     public void delete (@PathVariable String id){
         todoService.delete(id);

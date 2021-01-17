@@ -5,6 +5,7 @@ import com.example.demo.model.domain.unit.CommentDomain;
 import com.example.demo.model.gateway.CommentGateway;
 import com.example.demo.model.request.unit.CommentRequest;
 import com.example.demo.model.response.unit.CommentResponse;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +14,7 @@ public class ConverterCommentDB {
 
     public static CommentDomain convertCommentRequestToDomain (CommentRequest comment){
         return CommentDomain.builder()
-                .postId(comment.getPostId())
+                .postId(new ObjectId(comment.getPostId()))
                 .name(comment.getName())
                 .email(comment.getEmail())
                 .body(comment.getBody())
@@ -22,8 +23,8 @@ public class ConverterCommentDB {
 
     public static CommentResponse convertCommentDomainToResponse (CommentDomain comment){
         return CommentResponse.builder()
-                .postId(comment.getPostId())
-                .id(comment.getId())
+                .postId(comment.getPostId().toHexString())
+                .id(comment.getId().toHexString())
                 .name(comment.getName())
                 .email(comment.getEmail())
                 .body(comment.getBody())
@@ -40,7 +41,7 @@ public class ConverterCommentDB {
 
     public static CommentDomain convertCommentGatewayToDomainWithPostId(CommentGateway comment, String postId) {
         return CommentDomain.builder()
-                .postId(postId)
+                .postId(new ObjectId(postId))
                 .name(comment.getName())
                 .email(comment.getEmail())
                 .body(comment.getBody())
